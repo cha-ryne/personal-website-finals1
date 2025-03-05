@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "vercel-build": "npm run build",
-    "deploy": "npm run build && cd dist && git init && git add -A && git commit -m 'deploy' && git push -f https://github.com/cha-ryne/personal-website-vue.git master:gh-pages"
+    "deploy": "yarn build && gh-pages -d dist"
   },
   "dependencies": {
     "axios": "^1.8.1",
