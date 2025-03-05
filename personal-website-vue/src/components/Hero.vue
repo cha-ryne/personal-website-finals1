@@ -9,7 +9,7 @@
         <p>Metro Manila, Philippines</p>
         <div class="social-links">
           <a href="https://www.linkedin.com/in/charijoy-cempron-0b6950281/" target="_blank">
-            <i class="fab fa-linkedin"></i> LinkedIn
+            <font-awesome-icon :icon="['fab', 'linkedin']" /> LinkedIn
           </a>
         </div>
       </div>

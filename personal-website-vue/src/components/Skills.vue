@@ -1,17 +1,17 @@
 <template>
     <section class="skills" id="skills">
-      <h2><i class="fas fa-laptop-code"></i> IT Experience</h2>
+      <h2><font-awesome-icon :icon="['fas', 'laptop-code']" /> IT Experience</h2>
       <div class="skills-container">
         <div class="skill">
-          <i class="fab fa-java"></i>
+          <font-awesome-icon :icon="['fab', 'java']" />
           <p>Basic Java</p>
         </div>
         <div class="skill">
-          <i class="fab fa-python"></i>
+          <font-awesome-icon :icon="['fab', 'python']" />
           <p>Basic Python</p>
         </div>
         <div class="skill">
-          <i class="fas fa-gamepad"></i>
+          <font-awesome-icon :icon="['fas', 'gamepad']" />
           <p>Codee Combat</p>
         </div>
       </div>
