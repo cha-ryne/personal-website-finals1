@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-gallery-slideshow@1.5.2/dist/js/vue-gallery-slideshow.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <title>Personal Website</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <h1></h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#hobbies">Interests</a></li>
+          <li><a href="index.html#resources">Resources</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <img src="images/sit.jpg" alt="Profile Photo" class="profile-image">
+          <div class="hero-text">
+            <h2>Charijoy Cempron</h2>
+            <p class="subtitle">IT Student & Web Enthusiast</p>
+            <p>Cha/ri, Kakay, Acerola</p>
+            <p>Metro Manila, Philippines</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/charijoy-cempron-0b6950281/" target="_blank">
+                <i class="fab fa-linkedin"></i> LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Education Section -->
+      <section class="education" id="education">
+        <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+        
+        <div class="education-cards">
+          <div class="edu-card">
+            <h3>Secondary</h3>
+            <p class="school">St. Ives School</p>
+            <p class="location">Severina Subd. Bagumbayan, Taguig City</p>
+            <p class="year">SY 2017-2023</p>
+            <p class="achievement">With Honors</p>
+          </div>
+          
+          <div class="edu-card">
+            <h3>Tertiary</h3>
+            <p class="school">Asia Pacific College</p>
+            <p class="location">Humabon St. Magallanes, Makati City</p>
+            <p class="year">SY 2023-Present</p>
+            <p class="course">Bachelor of Science in Information Technology with Specialization in Mobile Internet</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Skills Section -->
+      <section class="skills" id="skills">
+        <h2><i class="fas fa-laptop-code"></i> IT Experience</h2>
+        <div class="skills-container">
+          <div class="skill">
+            <i class="fab fa-java"></i>
+            <p>Basic Java</p>
+          </div>
+          <div class="skill">
+            <i class="fab fa-python"></i>
+            <p>Basic Python</p>
+          </div>
+          <div class="skill">
+            <i class="fas fa-gamepad"></i>
+            <p>Codee Combat</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Gallery Section -->
+      <section class="gallery" id="gallery">
+        <h2><i class="fas fa-images"></i> Gallery</h2>
+        <div id="app" class="gallery-container">
+          <img class="image" v-for="(image, i) in images" :src="image" @click="onClick(i)" alt="Gallery Image">
+          <vue-gallery-slideshow v-if="showSlideshow" :images="images" :index="index" @close="closeSlideshow"></vue-gallery-slideshow>
+        </div>
+      </section>
+      
+      <!-- Interests and Goals -->
+      <div class="two-column">
+        <!-- Hobbies Section -->
+        <section class="hobbies" id="hobbies">
+          <h2><i class="fas fa-heart"></i> Hobbies & Interests</h2>
+          <ul class="interest-list">
+            <li>Blackpink (Jennie Kim)</li>
+            <li>Mangas/Manhwas/Manhuas</li>
+            <li>Animes (Zom 100, Chainsaw Man)</li>
+            <li>Pirates of the Caribbean</li>
+          </ul>
+        </section>
+        
+        <!-- Goals Section -->
+        <section class="goals" id="goals">
+          <h2><i class="fas fa-heart"></i> Life Goals</h2>
+          <ul class="goals-list">
+            <li>Have successful businesses</li>
+            <li>Be a model at least once</li>
+            <li>Master a musical instrument</li>
+            <li>Retire early</li>
+            <li>Find my purpose</li>
+            <li>Master a sport</li>
+            <li>Fitness and health journey</li>
+          </ul>
+        </section>
+      </div>
+      
+<!-- Update your projects section -->
+<section class="projects" id="projects">
+  <h2><i class="fas fa-star"></i> My Projects</h2>
+  <p>Check out my latest work and share your feedback!</p>
+  
+  <div id="projects-app">
+    <!-- Vue will mount here -->
+  </div>
+  
+  <!-- Vue Templates -->
+  <script type="text/x-template" id="projects-template">
+    <div>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-image" style="background-image: url('images/proj1.png');">
+            <div class="project-overlay">
+              <a href="index.html" class="project-link">
+                <i class="fas fa-external-link-alt"></i> View Project
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Personal Website</h3>
+            <p>A responsive personal website.</p>
+            <div class="project-rating" data-project="1">
+              <div class="stars">
+                <i v-for="n in 5" :key="`project1-star-${n}`" 
+                  :class="[n <= getAverageRating(1) ? 'fas' : 'far', 'fa-star']"
+                  @click="openRatingModal(1, n)"></i>
+              </div>
+              <span class="rating-count">({{ projectRatings[1] ? projectRatings[1].length : 0 }} ratings)</span>
+              <div class="project-comments-container">
+                <h4 class="comments-heading">Feedback</h4>
+                <div class="project-comments">
+                  <div v-if="!projectRatings[1] || !getTopComments(1).length" class="no-comments">
+                    No feedback yet. Be the first to comment!
+                  </div>
+                  <div v-else>
+                    <div v-for="rating in getTopComments(1)" :key="rating.id" class="comment">
+                      <div class="comment-stars">
+                        <i v-for="n in 5" :key="`rating-${rating.id}-star-${n}`"
+                           :class="[n <= rating.stars ? 'fas' : 'far', 'fa-star']"></i>
+                      </div>
+                      <p class="comment-text">{{ rating.comment }}</p>
+                      <p class="comment-date">{{ formatDate(rating.created_at) }}</p>
+                    </div>
+                    <button v-if="projectRatings[1] && commentsWithText(1).length > 3"
+                            class="view-more-comments" @click="showAllComments(1)">
+                      View {{ commentsWithText(1).length - 3 }} more comments
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-image" style="background-image: url('images/proj2.png');">
+            <div class="project-overlay">
+              <a href="https://www.figma.com/proto/tQESkzv4TdzWyUJZHTJjIK/RAMQUEST-MOBILE-VERSION?node-id=12-482&p=f&t=XiURdQC2jC9SNB9d-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=5%3A417&show-proto-sidebar=1" target="_blank" class="project-link">
+                <i class="fas fa-external-link-alt"></i> View Project
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Ramquest</h3>
+            <p>A mobile wireframe of Ramquest app.</p>
+            <div class="project-rating" data-project="2">
+              <div class="stars">
+                <i v-for="n in 5" :key="`project2-star-${n}`"
+                  :class="[n <= getAverageRating(2) ? 'fas' : 'far', 'fa-star']"
+                  @click="openRatingModal(2, n)"></i>
+              </div>
+              <span class="rating-count">({{ projectRatings[2] ? projectRatings[2].length : 0 }} ratings)</span>
+              <div class="project-comments-container">
+                <h4 class="comments-heading">Feedback</h4>
+                <div class="project-comments">
+                  <div v-if="!projectRatings[2] || !getTopComments(2).length" class="no-comments">
+                    No feedback yet. Be the first to comment!
+                  </div>
+                  <div v-else>
+                    <div v-for="rating in getTopComments(2)" :key="rating.id" class="comment">
+                      <div class="comment-stars">
+                        <i v-for="n in 5" :key="`rating-${rating.id}-star-${n}`"
+                           :class="[n <= rating.stars ? 'fas' : 'far', 'fa-star']"></i>
+                      </div>
+                      <p class="comment-text">{{ rating.comment }}</p>
+                      <p class="comment-date">{{ formatDate(rating.created_at) }}</p>
+                    </div>
+                    <button v-if="projectRatings[2] && commentsWithText(2).length > 3"
+                            class="view-more-comments" @click="showAllComments(2)">
+                      View {{ commentsWithText(2).length - 3 }} more comments
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Project 3 -->
+        <div class="project-card">
+          <div class="project-image" style="background-image: url('images/proj3.png');">
+            <div class="project-overlay">
+              <a href="https://rheaanne.github.io/Meneshu/home/" target="_blank" class="project-link">
+                <i class="fas fa-external-link-alt"></i> View Project
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Meneshu</h3>
+            <p>A responsive restaurant website.</p>
+            <div class="project-rating" data-project="3">
+              <div class="stars">
+                <i v-for="n in 5" :key="`project3-star-${n}`"
+                  :class="[n <= getAverageRating(3) ? 'fas' : 'far', 'fa-star']"
+                  @click="openRatingModal(3, n)"></i>
+              </div>
+              <span class="rating-count">({{ projectRatings[3] ? projectRatings[3].length : 0 }} ratings)</span>
+              <div class="project-comments-container">
+                <h4 class="comments-heading">Feedback</h4>
+                <div class="project-comments">
+                  <div v-if="!projectRatings[3] || !getTopComments(3).length" class="no-comments">
+                    No feedback yet. Be the first to comment!
+                  </div>
+                  <div v-else>
+                    <div v-for="rating in getTopComments(3)" :key="rating.id" class="comment">
+                      <div class="comment-stars">
+                        <i v-for="n in 5" :key="`rating-${rating.id}-star-${n}`"
+                           :class="[n <= rating.stars ? 'fas' : 'far', 'fa-star']"></i>
+                      </div>
+                      <p class="comment-text">{{ rating.comment }}</p>
+                      <p class="comment-date">{{ formatDate(rating.created_at) }}</p>
+                    </div>
+                    <button v-if="projectRatings[3] && commentsWithText(3).length > 3"
+                            class="view-more-comments" @click="showAllComments(3)">
+                      View {{ commentsWithText(3).length - 3 }} more comments
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 2 - Repeat similar structure but with data-project="2" -->
+        <!-- Project 3 - Repeat similar structure but with data-project="3" -->
+      </div>
+      
+<!-- Rating Modal -->
+<div v-if="showRatingModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close-modal" @click="closeRatingModal">&times;</span>
+    <h3>Rate This Project</h3>
+    <div class="stars large">
+      <i v-for="n in 5" :key="`modal-star-${n}`"
+         :class="[n <= selectedRating ? 'fas' : 'far', 'fa-star']"
+         @click="selectedRating = n"></i>
+    </div>
+    <textarea v-model="ratingComment" placeholder="Share your thoughts about this project (optional)"></textarea>
+    <button class="rating-btn" @click="submitRating">Submit Rating</button>
+  </div>
+</div>
+      
+      <!-- All Comments Modal -->
+      <div v-if="showCommentsModal" class="modal">
+        <div class="modal-content comments-modal">
+          <span class="close-modal" @click="closeCommentsModal">&times;</span>
+          <h3>All Feedback for Project</h3>
+          <div class="all-comments">
+            <div v-for="rating in getAllComments()" :key="rating.id" class="comment">
+              <div class="comment-stars">
+                <i v-for="n in 5" :key="`all-comment-${rating.id}-star-${n}`"
+                   :class="[n <= rating.stars ? 'fas' : 'far', 'fa-star']"></i>
+              </div>
+              <p class="comment-text">{{ rating.comment }}</p>
+              <p class="comment-date">{{ formatDate(rating.created_at) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+</section>
+   
+      <!-- Resources Section -->
+      <section class="resources" id="resources">
+        <h2><i class="fas fa-link"></i> Useful Links</h2>
+        <div class="resources-grid">
+          <a href="https://blog.pixelfreestudio.com/using-css-grid-and-flexbox-together-best-practices/" class="resource-link">
+            <i class="fas fa-th"></i>
+            <span style="color: white;">Flexbox and CSS grid</span>
+          </a>
+          <a href="https://www.w3schools.com/tags/tag_button.asp" class="resource-link">
+            <i class="fas fa-square"></i>
+            <span style="color: white;">Buttons</span>
+          </a>
+          <a href="https://vuejsexamples.com/responsive-gallery-component-for-vuejs/" class="resource-link">
+            <i class="fab fa-vuejs"></i>
+            <span style="color: white;">Vue Gallery</span>
+          </a>
+          <a href="https://surveyjs.io/form-library/examples/rating-scale/documentation" class="resource-link">
+            <i class="fas fa-poll"></i>
+            <span style="color: white;">Vue Rating</span>
+          </a>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 Charijoy Cempron</p>
+        <div class="footer-links">
+          <a href="index.html#education">Education</a>
+          <a href="index.html#projects">Projects</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  
+  <script src="js/image.js"></script>
+  <!-- Add your Vue.js script -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="js/project-vue.js"></script>
+  <script>
+    // Add scrolled class to header when page is scrolled
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

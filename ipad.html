@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>iPad Test</title>
+</head>
+<body>
+  <h1>iPad API Test</h1>
+  <button id="testGet">Test GET</button>
+  <button id="testPost">Test POST</button>
+  <div id="result"></div>
+
+  <script>
+    // Update your iPad.html test file
+document.getElementById('testGet').addEventListener('click', function() {
+  const xhr = new XMLHttpRequest();
+  // Use a CORS proxy
+  xhr.open('GET', 'https://charyn.pythonanywhere.com/api/ratings', true);
+  xhr.setRequestHeader('Accept', 'application/json');
+  
+  xhr.onload = function() {
+    document.getElementById('result').innerText = 
+      `GET Status: ${xhr.status}\nResponse: ${xhr.responseText.substring(0, 200)}...`;
+  };
+  
+  xhr.onerror = function(e) {
+    document.getElementById('result').innerText = `GET Error: ${e.type}\nDetails: ${JSON.stringify(e)}`;
+  };
+  
+  xhr.send();
+});
+    
+    document.getElementById('testPost').addEventListener('click', function() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://charyn.pythonanywhere.com/api/ratings', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('Accept', 'application/json');
+      
+      xhr.onload = function() {
+        document.getElementById('result').innerText = 
+          `POST Status: ${xhr.status}\nResponse: ${xhr.responseText}`;
+      };
+      
+      xhr.onerror = function() {
+        document.getElementById('result').innerText = 'POST Error: Request failed';
+      };
+      
+      const testData = {
+        project_id: 1,
+        user_id: "test_user_" + Math.random(),
+        stars: 5,
+        comment: "Test from iPad diagnostic page"
+      };
+      
+      xhr.send(JSON.stringify(testData));
+    });
+  </script>
+</body>
+</html>
